@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './LoginPage.css';
 import {urlConfig} from '../../config';
 import { useAppContext } from '../../context/AuthContext';
@@ -22,23 +22,23 @@ function LoginPage() {
 
     // insert code here to create handleLogin function and include console.log
 
-    const handleLogin = async () => {
-        try{
-            //first task
-            const response = await fetch(`/api/auth/login`, {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json',
-                    'Authorization': bearerToken ? `Bearer ${bearerToken}` : '', // Include Bearer token if available
-                },
-                body: JSON.stringify({    
-                    email: email,
-                    password: password,
-                })
-            })
-        }catch (e) {
-            console.log("Error fetching details: " + e.message);
-        }
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        //api call
+        const res = await fetch(`${urlConfig.backendUrl}/api/auth/login`, {
+            //Step 1 - Task 7
+            method: 'POST',
+            //Step 1 - Task 8
+          headers: {
+            'content-type': 'application/json',
+            'Authorization': bearerToken ? `Bearer ${bearerToken}` : '', // Include Bearer token if available
+          },
+        //Step 1 - Task 9
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          })
+        });
 
         const json = await res.json();
         if (json.authtoken) {

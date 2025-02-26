@@ -16,22 +16,21 @@ function RegisterPage() {
     const [password, setPassword] = useState('');
 
     const handleRegister = async () => {
-        try{
-            const response = await fetch(`${urlConfig.backendUrl}/api/auth/register`, {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json',
-                },
-                body: JSON.stringify({
-                    firstName: firstName,
-                    lastName: lastName,
-                    email: email,
-                    password: password
-                })
+        const response = await fetch(`${urlConfig.backendUrl}/api/auth/register`, {
+            //Step 1 - Task 6
+            method: 'POST',
+            //Step 1 - Task 7
+            headers: {
+                'content-type': 'application/json',
+            },
+            //Step 1 - Task 8
+            body: JSON.stringify({
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                password: password
             })
-        }catch (e) {
-            console.log("Error fetching details: " + e.message);
-        }
+        });
 
         const json = await response.json();
         if (json.authtoken) {
